@@ -57,25 +57,31 @@ fig, ax1 = plt.subplots()
 color = 'tab:red'
 
 ax1.set_xlabel('Date (Months)')
-ax1.set_ylabel('Weight', color=color)
+ax1.set_ylabel('Weight Change (lbs/month)', color=color)
 #questionable math
 plt.plot(mfpData.loc[:,'Date'], np.gradient(mfpData.loc[:,'Weight']), color=color)
+plt.plot(mfpData.loc[:,'Date'], ((mfpData.loc[:,'Calories']-2484)/3600).rolling(14, win_type='blackmanharris').mean(), color='blue')
 ax1.tick_params(axis='y', labelcolor=color)
 
-ax2 = ax1.twinx()
-color = 'tab:blue'
-
-ax2.set_xlabel('Date (Months)')
-ax2.set_ylabel('Steps', color=color)
-plt.plot(mfpData.loc[:,'Date'], mfpData.loc[:,'FB steps'].rolling(10, win_type='triang').mean(), color=color)
-ax2.tick_params(axis='y', labelcolor=color)
+#ax2 = ax1.twinx()
+#color = 'tab:blue'
+#
+#ax2.set_xlabel('Date (Months)')
+#ax2.set_ylabel('Steps', color=color)
+#plt.plot(mfpData.loc[:,'Date'], mfpData.loc[:,'FB steps'].rolling(10, win_type='triang').mean(), color=color)
+#ax2.tick_params(axis='y', labelcolor=color)
 
 ax3 = ax1.twinx()
 color = 'tab:green'
 
 ax3.set_xlabel('Date (Months)')
 ax3.set_ylabel('Calories', color=color)
-plt.plot(mfpData.loc[:,'Date'], mfpData.loc[:,'Calories'].rolling(10, win_type='triang').mean(), color=color)
+plt.ylim([0,2500])
+plt.plot(mfpData.loc[:,'Date'], mfpData.loc[:,'Calories'].rolling(7, win_type='blackmanharris').mean(), color=color)
+
+plt.plot(mfpData.loc[:,'Date'], np.full(len(mfpData.loc[:,'Date']),1200), color=color)
+plt.plot(mfpData.loc[:,'Date'], np.full(len(mfpData.loc[:,'Date']),1400), color=color)
+plt.plot(mfpData.loc[:,'Date'], np.full(len(mfpData.loc[:,'Date']),1600), color=color)
 ax3.tick_params(axis='y', labelcolor=color)
 
 fig.tight_layout()
