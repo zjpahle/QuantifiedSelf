@@ -10,7 +10,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-filePath = 'C:\\Users\pahlza\Desktop\School Stuff\SelfData\QuantifiedSelf\\'
+#filePath = 'C:\\Users\pahlza\Desktop\School Stuff\SelfData\QuantifiedSelf\\'
+filePath = 'C:\\Users\zjpah\Documents\GitHub\QuantifiedSelf\\'
 fileName = 'Nutrition-Summary-2018-01-01-to-2018-06-05.xlsx'
 
 mfpXLS = pd.ExcelFile(os.path.join(filePath, fileName))
